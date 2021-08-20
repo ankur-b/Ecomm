@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuItem from '../MenuItem/MenuItem'
 import './Directory.css'
 const Directory = (props) => {
