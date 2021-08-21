@@ -2,7 +2,7 @@ import CreateDataContext from './CreateDataContext';
 const UserReducer = (state, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
-      return {...state, errorMessage: action.payload};
+      return {currentUser:action.payload};
     default:
       return state;
   }

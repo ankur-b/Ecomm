@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect,useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route,Redirect } from "react-router-dom";
 import Homepage from "./Pages/Homepage/Homepage";
 import Shoppage from "./Pages/Shop/Shop";
 import Header from "./Components/Header/Header";
@@ -9,7 +9,7 @@ import { auth,createUserProfileDocument } from "./Firebase/Firebase";
 import {Context as UserContext} from './Context/UserContext'
 import "./App.css";
 const App = () => {
-  const {setCurrentUser} = useContext(UserContext)
+  const {state,setCurrentUser} = useContext(UserContext)
   let unsubscribeFromAuth = null
   useEffect(() => {
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
@@ -34,7 +34,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={Shoppage} />
-        <Route path="/signin" component={SignInAndSignUpPage} />
+        <Route path="/signin" render={()=>state.currentUser?(<Redirect to="/"/>):(<SignInAndSignUpPage/>)} />
       </Switch>
     </div>
   );
