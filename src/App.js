@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import Homepage from "./Pages/Homepage/Homepage";
 import Shoppage from "./Pages/Shop/Shop";
 import Header from "./Components/Header/Header";
 import SignInAndSignUpPage from "./Pages/SignInAndSignUpPage/SignInAndSignUpPage";
 import { auth,createUserProfileDocument } from "./Firebase/Firebase";
+import {Context as UserContext} from './Context/UserContext'
 import "./App.css";
 const App = () => {
-  const [currentUser,setCurrentUser] = useState(null)
+  const {setCurrentUser} = useContext(UserContext)
   let unsubscribeFromAuth = null
   useEffect(() => {
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
@@ -19,11 +20,9 @@ const App = () => {
             id: snapShot.id,
             ...snapShot.data()
           })
-          console.log(currentUser)
         })
+        setCurrentUser(userAuth)
       }
-      setCurrentUser(userAuth)
-      console.log(currentUser)
     })
     return ()=>{
       unsubscribeFromAuth()
@@ -31,7 +30,7 @@ const App = () => {
   }, [unsubscribeFromAuth]);
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={Shoppage} />
