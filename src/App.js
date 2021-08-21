@@ -34,7 +34,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={Shoppage} />
-        <Route path="/signin" render={()=>state.currentUser?(<Redirect to="/"/>):(<SignInAndSignUpPage/>)} />
+        <Route path="/signin" render={()=>state.currentUser?(<Redirect to="/"/>):(<SignInAndSignUpPage/> )} />
       </Switch>
     </div>
   );
