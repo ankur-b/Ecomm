@@ -12,8 +12,8 @@
   padding-right: 15px;
 }
 .checkout-item .image-container img {
-  width: 75%;
-  height: 75%;
+  width:100%;
+  height:100%;
 }
 .name,
 .quantity,
@@ -21,9 +21,14 @@
   width: 23%;
 }
 .checkout-item .quantity {
-  padding-left: 20px;
+  display: flex;
 }
-
+.checkout-item .quantity .arrow{
+  cursor: pointer;
+}
+.checkout-item .quantity .value{
+  margin: 0px 10px;
+}
 .checkout-item .remove-button {
   padding-left: 12px;
   cursor: pointer;
