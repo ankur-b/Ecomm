@@ -6,11 +6,15 @@ import {Context as UserContext} from '../../Context/UserContext';
 import {Context as CartContext} from '../../Context/CartContext';
 import CartIcon from '../CartIcon/CartIcon';
 import CartDropdown from '../CartDropdown/CartDropdown'
+import {selectCartHidden} from '../../Context/CartSelector';
+import {selectCurrentUser} from '../../Context/UserSelector'
 import "./Header.css";
 
 const Header = () => {
   const {state}=useContext(UserContext);
   const Cart=useContext(CartContext)
+  const currentUser = selectCurrentUser(state)
+  const hidden = selectCartHidden(Cart.state)
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -25,7 +29,7 @@ const Header = () => {
         <Link className="option" to="/shop">
           CONTACT
         </Link>
-        {state.currentUser ? (
+        {currentUser ? (
           <div className="option" onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
@@ -37,7 +41,7 @@ const Header = () => {
         <CartIcon/>
       </div>
       {
-        Cart.state.hidden?null:<CartDropdown/> 
+        hidden?null:<CartDropdown/> 
       }
     </div>
   );
