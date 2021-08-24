@@ -4,10 +4,9 @@ import "./CollectionItem.css";
 import {Context as CartContext} from '../../Context/CartContext';
 const CollectionItem = ({ item }) => {
   const {name, price, imageUrl} = item
-  const {state,addItem} = useContext(CartContext);
+  const {addItem} = useContext(CartContext);
   return (
     <div className="collection-item">
-      {console.log(state.cartItems)}
       <div
         className="image"
         style={{
