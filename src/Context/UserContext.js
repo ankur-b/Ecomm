@@ -9,7 +9,6 @@ const UserReducer = (state, action) => {
 };
 
 const setCurrentUser = dispatch => (user)=>{
-    console.log("callback",user)
     dispatch({type:'SET_CURRENT_USER',payload:user})
 }
 export const {Provider, Context} = CreateDataContext(
