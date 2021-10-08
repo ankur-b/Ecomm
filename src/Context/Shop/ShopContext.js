@@ -1,11 +1,15 @@
 import CreateDataContext from '../CreateDataContext';
-import SHOP_DATA from './Shopdata';
 const shopReducer = (state,action)=>{
     switch(action.type){
+        case "UPDATE_COLLECTIONS":
+            return {...state,collections:action.payload}
         default:
             return state
     }
 }
-export const {Provider ,Context} = CreateDataContext(shopReducer,{},{
-    collections:SHOP_DATA
+const updateCollections = dispatch=>(collectionsMap)=>{
+    dispatch({type:'UPDATE_COLLECTIONS',payload:collectionsMap})
+} 
+export const {Provider ,Context} = CreateDataContext(shopReducer,{updateCollections},{
+    collections:null
 })
