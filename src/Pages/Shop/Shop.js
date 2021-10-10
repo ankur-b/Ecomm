@@ -1,29 +1,20 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useContext,useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import Collection from '../Collection/Collection';
-import CollectionsOverview from '../../Components/CollectionsOverview/CollectionsOverview';
 import {Context as ShopContext} from '../../Context/Shop/ShopContext';
-import { firestore,convertCollectionsSnapshotToMap } from '../../Firebase/Firebase';
-import WithSpinner from '../../Components/WithSpinner/WithSpinner';
+import CollectionsOverviewContainer from '../../Components/CollectionsOverview/CollectionsOverviewContainer';
+import CollectionContainer from '../Collection/CollectionContainer';
+import { selectIsCollectionsLoaded } from '../../Context/Shop/ShopSelector';
 import './Shop.css';
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
-const CollectionPageWithSpinner = WithSpinner(Collection) 
 const Shoppage = (props) =>{
-    let unsubscribeFromSnapshot = null;
-    const [isLoading,setIsLoading] = useState(true);
-    const {updateCollections} = useContext(ShopContext)
+    const {state,fetchCollectionsStartAsync} = useContext(ShopContext);
+    const isCollectionsLoaded = selectIsCollectionsLoaded(state);
     useEffect(()=>{
-        const collentionRef = firestore.collection('collections');
-        collentionRef.get().then(snapshot=>{
-            const collectionMap =  convertCollectionsSnapshotToMap(snapshot)
-            updateCollections(collectionMap);
-            setIsLoading(false);
-        })
+        fetchCollectionsStartAsync()
     },[])
     return(
        <div className='shop-page'>
-           <Route exact path={`${props.match.path}`} render={(props)=><CollectionsOverviewWithSpinner isLoading={isLoading} {...props}/>}/> 
-           <Route path={`${props.match.path}/:collectionId`} render={(props)=><CollectionPageWithSpinner isLoading={isLoading} {...props}/>} />)
+           <Route exact path={`${props.match.path}`} component={CollectionsOverviewContainer}/> 
+           <Route path={`${props.match.path}/:collectionId`} component={CollectionContainer} />
        </div>
     )   
 }

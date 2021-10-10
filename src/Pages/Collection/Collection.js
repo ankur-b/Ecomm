@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import CollectionItem from '../../Components/CollectionItem/CollectionItem';
 import {Context as ShopContext} from '../../Context/Shop/ShopContext';
 import {selectCollection} from '../../Context/Shop/ShopSelector';
+import WithSpinner from '../../Components/WithSpinner/WithSpinner';
 import './Collection.css';
 
 const Collection = ({match})=>{
@@ -19,4 +20,4 @@ const Collection = ({match})=>{
         </div>
     )
 }
-export default Collection
+export default WithSpinner(Collection);

@@ -1,6 +1,7 @@
 import React,{useContext} from 'react';
 import {Context as ShopContext} from '../../Context/Shop/ShopContext'
 import {selectCollectionsForPreview} from '../../Context/Shop/ShopSelector';
+import WithSpinner from '../WithSpinner/WithSpinner';
 import CollectionPreview from '../CollectionPreview/CollectionPreview'
 import "./CollectionsOverview.css";
 
@@ -15,4 +16,4 @@ const CollectionsOverview = () => {
     </div>
   );
 };
-export default CollectionsOverview;
+export default WithSpinner(CollectionsOverview);

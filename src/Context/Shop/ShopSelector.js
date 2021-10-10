@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import memoize from 'lodash.memoize';
 
 const selectShop = state => state.collections;
+const selectIsFetching = state => state.isFetching;
 
 export const selectShopItems = createSelector(
   [selectShop],
@@ -17,3 +18,11 @@ export const selectCollection = memoize((collectionUrlParam) =>
     (collections) => collections? collections[collectionUrlParam]:null
   )
 );
+export const selectIsCollectionFetching = createSelector(
+  [selectIsFetching],
+  isFetching=>isFetching
+)
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  collections => !!collections
+)
