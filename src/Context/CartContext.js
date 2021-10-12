@@ -19,6 +19,10 @@ const CartReducer = (state, action) => {
         ...state,
         cartItems:removeItemFromCart(state.cartItems,action.payload)
       }
+    case "CLEAR_CART":
+      return {
+        ...state,cartItems:[]
+      }
     default:
       return state;
   }
@@ -36,11 +40,11 @@ const clearItemFromCart = (dispatch) => (item) => {
 const removeItem = (dispatch) =>(item)=>{
   dispatch({type:"REMOVE_ITEM",payload:item})
 }
-// const addItem = (dispatch) =>(item)=>{
-//   dispatch({})
-// }
+const clearCart = (dispatch) =>()=>{
+  dispatch({type:"CLEAR_CART"})
+}
 export const { Provider, Context } = CreateDataContext(
   CartReducer,
-  { toggleCartHidden, addItem, clearItemFromCart ,removeItem},
+  { toggleCartHidden, addItem, clearItemFromCart ,removeItem,clearCart},
   { hidden: true, cartItems: [] }
 );

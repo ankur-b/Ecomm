@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import FormInput from "../FormInput/FormInput";
 import CustomButton from "../CustomButton/CustomButton";
-import { auth, signInWithGoogle } from "../../Firebase/Firebase";
+import {Context as UserContext} from "../../Context/UserContext";
 import "./Signin.css";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {signInWithGoogle,signInWithEmailAndPassword} = useContext(UserContext)
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      console.log(error)
-    }
+    signInWithEmailAndPassword(email,password)
+    setEmail("")
+    setPassword("")
   };
   return (
     <div className="sign-in" onSubmit={handleSubmit}>

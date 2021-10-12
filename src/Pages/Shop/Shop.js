@@ -3,11 +3,9 @@ import {Route} from 'react-router-dom';
 import {Context as ShopContext} from '../../Context/Shop/ShopContext';
 import CollectionsOverviewContainer from '../../Components/CollectionsOverview/CollectionsOverviewContainer';
 import CollectionContainer from '../Collection/CollectionContainer';
-import { selectIsCollectionsLoaded } from '../../Context/Shop/ShopSelector';
 import './Shop.css';
 const Shoppage = (props) =>{
-    const {state,fetchCollectionsStartAsync} = useContext(ShopContext);
-    const isCollectionsLoaded = selectIsCollectionsLoaded(state);
+    const {fetchCollectionsStartAsync} = useContext(ShopContext);
     useEffect(()=>{
         fetchCollectionsStartAsync()
     },[])

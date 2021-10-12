@@ -1,5 +1,4 @@
 import React,{useContext} from "react";
-import { auth } from "../../Firebase/Firebase";
 import { ReactComponent as Logo } from "../../Assets/crown.svg";
 import {Context as UserContext} from '../../Context/UserContext';
 import {Context as CartContext} from '../../Context/CartContext';
@@ -10,7 +9,7 @@ import {selectCurrentUser} from '../../Context/UserSelector'
 import {HeaderContainer,LogoContainer,OptionsContainer,OptionLink} from './HeaderStyles'
 
 const Header = () => {
-  const {state}=useContext(UserContext);
+  const {state,signout}=useContext(UserContext);
   const Cart=useContext(CartContext)
   const currentUser = selectCurrentUser(state)
   const hidden = selectCartHidden(Cart.state)
@@ -27,7 +26,10 @@ const Header = () => {
           CONTACT
         </OptionLink>
         {currentUser ? (
-          <OptionLink as="div" onClick={() => auth.signOut()}>
+          <OptionLink as="div" onClick={async()=>{
+            await signout()
+            await Cart.clearCart()
+          }}>
             SIGN OUT
           </OptionLink>
         ) : (
