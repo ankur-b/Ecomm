@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import CartItem from "../CartItem/CartItem";
 import { selectCartItems } from "../../Context/CartSelector";
 import { Context as CartContext } from "../../Context/CartContext";
 import "./CartDropdown.css";
 
-const CartDropdown = ({ history }) => {
+const CartDropdown = () => {
   const { state, toggleCartHidden } = useContext(CartContext);
+  const history = useHistory()
   const cartItems = selectCartItems(state);
   return (
     <div className="cart-dropdown">
@@ -31,4 +32,4 @@ const CartDropdown = ({ history }) => {
     </div>
   );
 };
-export default withRouter(CartDropdown);
+export default CartDropdown;

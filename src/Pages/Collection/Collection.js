@@ -1,13 +1,15 @@
 import React,{useContext} from 'react';
 import CollectionItem from '../../Components/CollectionItem/CollectionItem';
+import { useParams } from 'react-router-dom';
 import {Context as ShopContext} from '../../Context/Shop/ShopContext';
 import {selectCollection} from '../../Context/Shop/ShopSelector';
 import WithSpinner from '../../Components/WithSpinner/WithSpinner';
 import './Collection.css';
 
 const Collection = ({match})=>{
+    const {collectionId} = useParams()
     const {state} = useContext(ShopContext);
-    const collection = selectCollection(match.params.collectionId)(state); 
+    const collection = selectCollection(collectionId)(state); 
     const {title,items} = collection;
     return(
         <div className="collection-page">

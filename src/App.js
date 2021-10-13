@@ -12,10 +12,9 @@ import "./App.css";
 const App = () => {
 	const { state,checkUserSession } = useContext(UserContext);
 	const currentUser = selectCurrentUser(state);
-	let unsubscribeFromAuth = null;
 	useEffect(() => {
 		checkUserSession()
-	}, [unsubscribeFromAuth]);
+	}, [checkUserSession]);
 	return (
 		<div>
 			<Header />
